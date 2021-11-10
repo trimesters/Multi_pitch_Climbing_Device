@@ -1,17 +1,25 @@
+#define Sensor_1 21
 
- int inPin = 7;
+
+volatile uint32_t last_interrupt_time_x = 0;
+
+volatile uint8_t plotter_aktiv_x = 0; //The value for the X-axis sensor
+
+
+void interrupt_init();
+void sensor_left();
+
  int Counter = 0;
- uint8_t flag = 0; 
- //int16_t uint16_t
  
- void setup() {
+ 
+ void setup() 
+ {
  Serial.begin(9600);    //PC-Monitoring
  Serial1.begin(9600);   //Serielle Verbindung zu 1. Funkmodul 
  Serial2.begin(9600);   //Serielle Verbindung zu 2. Funkmodul
- Serial.println("Let's start!");
 
+interrupt_init(); //Initialization of the Interrupt routine
 
- pinMode(inPin, INPUT_PULLUP);
  }
 
 
@@ -19,12 +27,7 @@
  void loop() 
  {
 
-  flag = digitalRead(inPin);
 
-if (flag != 0)
-{
-  Serial1.write("Taster gedrueckt");
-}
  if (Serial2.available()) 
  {           //Wenn Funkmodul 2 etwas empfang wird es in den Monitor geschrieben
   Serial.write(Serial2.read());
@@ -34,7 +37,12 @@ if (flag != 0)
     Serial1.write(Serial.read());
  }
 
-delay(5);
+
+
+delay(10);
+
+/*
+ * 
 Counter += 1;
 
  if (Counter > 1000) 
@@ -43,6 +51,31 @@ Counter += 1;
   Serial.println();
   Counter = 0;
   }
+  
+  */
  }
+
+
+
+ void interrupt_init() 
+{
+  // Initialize the Interrupt Pins:
+  attachInterrupt(digitalPinToInterrupt(Sensor_1), sensor_left, CHANGE);
+
+}
+
+//The x-axis is referenced in this interrupt routine.
+void sensor_left() //Serial.println("Pin11");
+{ 
+  
+  uint32_t interrupt_time = millis();
+  
+  if ((interrupt_time - last_interrupt_time_x) > 50) 
+  {
+    Serial1.write("Hello \n");
+  }
+  last_interrupt_time_x = interrupt_time;
+}
+
 
  
