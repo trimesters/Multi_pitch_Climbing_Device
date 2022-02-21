@@ -27,7 +27,7 @@ void loop()
 {
   if ( pairingAktiv == 2 )
   {
-
+    delay(1000);
   }
   else if ( pairingAktiv == 1 )
   {
