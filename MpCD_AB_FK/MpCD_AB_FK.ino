@@ -1,3 +1,15 @@
+/**********************************************************************************************************
+*
+* @file     MpC_AB_FK.ino
+* @brief    main
+* @author   Alois Boesch, Florian Kalb
+* 
+* @details  The main of the program is listed here. It processes incoming commands and sends appropriate responses.
+* @note     There are still debug functions stored.
+*
+**********************************************************************************************************/
+
+
 #include "define.h"
 #include "communication.h"
 
@@ -8,7 +20,7 @@ void set_pairing_flag(void);
 
 uint8_t flag = 0;
 char message[M_ARRAY_SIZE + 1];
-volatile uint8_t pairingAktiv = 0; //Dieses Flag dient zum erkennen wenn das Gerät in den Pairing Modus kommt.
+volatile uint8_t pairingAktiv = 0; 
 
 void setup() 
 {
@@ -17,7 +29,7 @@ void setup()
   Serial.begin(9600);             //Debug
   while ( !Serial ) {;}
 
-  randomSeed(analogRead(3));      //Initialisiert den Pseudozufallszahlengenerator
+  randomSeed(analogRead(3));   
 
   pinMode(SET_PIN, OUTPUT);
   digitalWrite(SET_PIN, HIGH);

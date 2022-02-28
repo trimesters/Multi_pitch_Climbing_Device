@@ -1,3 +1,15 @@
+/**********************************************************************************************************
+*
+* @file     communication.h
+* @brief    communication
+* @author   Alois Boesch, Florian Kalb
+* 
+* @details  In this file the communication between the devices is defined and executed.
+* @note     The pairing function still needs to be revised. Since errors can still occur.
+            The length of the message must still be made variable. 
+*
+**********************************************************************************************************/
+
 #ifndef COMMUNICATION_h
 
   #define COMMUNICATION_h
